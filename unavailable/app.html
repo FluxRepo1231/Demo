@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="../assets/LostCube.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Unavailable - FlareBytes</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #0a0a0f;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 0 1rem;
+    }
+
+    .unavailable-image {
+      width: 150px; /* Adjust size as needed */
+      height: 150px; /* Adjust size as needed */
+      margin-bottom: 1.5rem;
+      object-fit: cover; /* Ensures the image fits well */
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      margin-bottom: 2rem;
+    }
+
+    .home-button {
+      padding: 0.75rem 1.5rem;
+      background-color: #6e44ff;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .home-button:hover {
+      background-color: transparent;
+      border-color: #6e44ff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(110, 68, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Plain Image Above the Message -->
+    <img src="../assets/sad.png" alt="Unavailable" class="unavailable-image">
+    <h1>This App is Unavailable</h1>
+    <p>Please contact the admins for more information.</p>
+    <a href="../" class="home-button">Go Back</a>
+  </div>
+</body>
+</html>

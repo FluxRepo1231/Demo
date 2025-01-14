@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flarebyte News</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* General Styles */
+    :root {
+      --primary: #6e44ff;
+      --primary-dark: #5a2ee6;
+      --background: #0a0a0f;
+      --surface: #1a1a2e;
+      --text: #ffffff;
+      --text-secondary: #b0b0b0;
+      --glow: rgba(110, 68, 255, 0.8);
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 300px;
+      background-color: rgba(26, 26, 46, 0.95);
+      padding: 2rem;
+      height: 100vh;
+      border-right: 1px solid rgba(110, 68, 255, 0.1);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: auto;
+      border-radius: 50%;
+      transition: transform var(--transition-speed) ease;
+    }
+
+    .logo:hover .logo-img {
+      transform: rotate(360deg);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      font-weight: 500;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+      background-color: rgba(110, 68, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 300px;
+      padding: 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(145deg, var(--background), var(--surface));
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      background: linear-gradient(45deg, var(--text), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 20px var(--glow);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-top: 1rem;
+    }
+
+    /* News Section */
+    .news {
+      margin-bottom: 4rem;
+    }
+
+    .news h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--text);
+      position: relative;
+    }
+
+    .news h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: var(--primary);
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .news-card {
+      background: linear-gradient(145deg, var(--background), var(--surface));
+      padding: 2rem;
+      border-radius: 15px;
+      transition: all var(--transition-speed) ease;
+      border: 1px solid rgba(110, 68, 255, 0.1);
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .news-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(110, 68, 255, 0.2);
+    }
+
+    .news-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .news-card .date {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .news-card p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* No Announcements Placeholder */
+    .no-announcements {
+      text-align: center;
+      padding: 2rem;
+      background: var(--surface);
+      border-radius: 15px;
+      border: 1px solid rgba(110, 68, 255, 0.1);
+    }
+
+    .no-announcements h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .no-announcements p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem;
+      background-color: var(--surface);
+      text-align: center;
+      border-top: 1px solid rgba(110, 68, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      transition: color var(--transition-speed) ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .social-media {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-media a {
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: color var(--transition-speed) ease;
+    }
+
+    .social-media a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        margin-bottom: 2rem;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+    /* See More Button */
+.see-more-button {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: var(--text);
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+/* News Grid */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* News Card */
+.news-card {
+  background: linear-gradient(145deg, var(--background), var(--surface));
+  padding: 2rem;
+  border-radius: 15px;
+  transition: all var(--transition-speed) ease;
+  border: 1px solid rgba(110, 68, 255, 0.1);
+}
+
+.news-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(110, 68, 255, 0.2);
+}
+
+.news-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.news-card .date {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.news-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Hidden Announcements */
+.hidden-announcements {
+  display: none; /* Hidden by default */
+  width: 100%;
+  grid-column: 1 / -1; /* Span all columns */
+}
+
+/* Show hidden announcements when toggled */
+.hidden-announcements.visible {
+  display: block;
+}
+
+.see-more-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(110, 68, 255, 0.4);
+}
+  </style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const seeMoreBtn = document.getElementById('see-more-btn');
+    const hiddenAnnouncements = document.querySelector('.hidden-announcements');
+
+    seeMoreBtn.addEventListener('click', function () {
+      if (hiddenAnnouncements.style.display === 'none') {
+        hiddenAnnouncements.style.display = 'block';
+        seeMoreBtn.textContent = 'See Less';
+      } else {
+        hiddenAnnouncements.style.display = 'none';
+        seeMoreBtn.textContent = 'See More';
+      }
+    });
+  });
+</script>
+  <link rel="icon" type="image/x-icon" href="../assets/LostCube.png">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../assets/LostCube.png" alt="Flarebyte Hosting Logo" class="logo-img">
+      <span>Flarebyte News</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../"><i class="fas fa-home"></i> Home</a>
+      <a href="../contact/"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to Flarebyte News</h1>
+        <p>Stay updated with the latest news, updates, and announcements.</p>
+      </div>
+    </section>
+
+<!-- News Section -->
+<section class="news">
+  <h2>Latest News</h2>
+  <div class="news-grid">
+    <!-- Visible Announcements -->
+    <article class="news-card">
+      <h3>Updated Website Released</h3>
+      <p class="date">January 14, 2025</p>
+      <p>We are excited to announce a fully updated and renewed website with a fresh look and feel in collaboration with VoidSystems.</p>
+    </article>
+
+    <article class="news-card">
+      <h3>Updated Plans</h3>
+      <p class="date">January 14, 2025</p>
+      <p>We have introduced some unofficial placeholder plans until the release of the hosting. These plans will be further improved upon release.</p>
+    </article>
+
+    <article class="news-card">
+      <h3>Release Date</h3>
+      <p class="date">January 14, 2025</p>
+      <p>As per our current configuration and plans, depending on how things are going, our release date will be one month from now, meaning on <strong>February 15, 2025</strong>.</p>
+    </article>
+
+    <!-- Hidden Announcements -->
+    <div class="hidden-announcements" style="display: none;">
+      <article class="news-card">
+        <h3>New Partnership with VoidSystems</h3>
+        <p class="date">February 1, 2025</p>
+        <p>
+          We are thrilled to announce a new partnership with VoidSystems! This collaboration will bring cutting-edge technology and innovative solutions to Flarebyte Hosting. Stay tuned for exciting updates and new features!
+        </p>
+      </article>
+
+      <article class="news-card">
+        <h3>Exclusive Early-Bird Discounts</h3>
+        <p class="date">February 5, 2025</p>
+        <p>
+          To celebrate our upcoming launch, we're offering exclusive early-bird discounts to our loyal community. Don't miss out on these limited-time offers!
+        </p>
+      </article>
+      
+      <article class="news-card">
+        <h3>New Owner</h3>
+        <p class="date">February 5, 2025</p>
+        <p>
+          To Celebrate Flux Obtaining the Ownership Of flarebyte he will be moving it into the hands of voidsystems
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <!-- See More Button -->
+  <button id="see-more-btn" class="see-more-button">See More</button>
+</section>
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="../unavailable/404.html">Privacy Policy</a>
+          <a href="../unavailable/404.html">Terms of Service</a>
+          <a href="../contact/index.html">Support</a>
+        </div>
+        <div class="social-media">
+          <a href="../discord/index.html"><i class="fab fa-discord"></i></a>
+        </div>
+        <p class="copyright">&copy; 2023 Flarebyte Hosting. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
